@@ -8,19 +8,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      async function makeGetRequest() {
-        try {
-          const response = await axios.get(
-            "https://simple-python-rps-service-k26jnjhpda-uc.a.run.app/game?player1_choice=rock&player1_name_input=Player1&player2_name_input=Player2"
-          );
-          console.log(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    </script>
-    
 
     <script>
     let roundNumber = 0;
@@ -62,61 +49,40 @@
           $("#player-scissors-chosen").show();
         }
 
-        // Create the computer's choice
-        const choices = ["rock", "paper", "scissors"];
-        const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+        async function makeGetRequest() {
+            try {
+                const response = await axios.get(
+                    `https://simple-python-rps-service-k26jnjhpda-uc.a.run.app/game?player1_choice=${player1Choice}&player1_name_input=Player1&player2_name_input=Computer`
+                );
 
-        // Display the computer's choice
-        if (computerChoice == "rock") {
-          $("#computer-rock-chosen").show();
-          $("#computer-paper-chosen").hide();
-          $("#computer-scissors-chosen").hide();
-        } else if (computerChoice == "paper") {
-          $("#computer-rock-chosen").hide();
-          $("#computer-paper-chosen").show();
-          $("#computer-scissors-chosen").hide();
-        } else if (computerChoice == "scissors") {
-          $("#computer-rock-chosen").hide();
-          $("#computer-paper-chosen").hide();
-          $("#computer-scissors-chosen").show();
+                // Display the computer's choice
+                if (response.data.computer_choice == "rock") {
+                    $("#computer-rock-chosen").show();
+                    $("#computer-paper-chosen").hide();
+                    $("#computer-scissors-chosen").hide();
+                } else if (response.data.computer_choice == "paper") {
+                    $("#computer-rock-chosen").hide();
+                    $("#computer-paper-chosen").show();
+                    $("#computer-scissors-chosen").hide();
+                } else if (response.data.computer_choice == "scissors") {
+                    $("#computer-rock-chosen").hide();
+                    $("#computer-paper-chosen").hide();
+                    $("#computer-scissors-chosen").show();
+                }
+
+                // Update elements based on python response
+                $("#winner").text(response.data.winner);
+                $("#round-number").text("Round " + response.data.round_number);
+                $("#player-1-score").text(`Player 1 Score: ${response.data.player1_score}`);
+                $("#player-2-score").text(`Computer Score: ${response.data.computer_score}`);
+
+            } catch (error) {
+                console.error(error);
+            }
         }
+        makeGetRequest();
 
-        // Determine the winner, and increment the score
-        if (player1Choice == computerChoice) {
-          $("#winner").text("It's a tie! Both chose " + player1Choice);
 
-        } else if (player1Choice == "rock" && computerChoice == "scissors") {
-          $("#winner").text(player1NameInput !== "" ? player1NameInput : "Player 1" + " wins this round.");
-          player1Score++;
-
-        } else if (player1Choice == "rock" && computerChoice == "paper") {
-          $("#winner").text("The computer wins this round.");
-          computerScore++;
-
-        } else if (player1Choice == "paper" && computerChoice == "rock") {
-          $("#winner").text(player1NameInput !== "" ? player1NameInput : "Player 1" + " wins this round.");
-          player1Score++;
-
-        } else if (player1Choice == "paper" && computerChoice == "scissors") {
-          $("#winner").text("The computer wins this round.");
-          computerScore++;
-
-        } else if (player1Choice == "scissors" && computerChoice == "paper") {
-          $("#winner").text(player1NameInput !== "" ? player1NameInput : "Player 1" + " wins this round.");
-          player1Score++;
-
-        } else if (player1Choice == "scissors" && computerChoice == "rock") {
-          $("#winner").text("The computer wins this round.");
-          computerScore++;
-        }
-
-        // Display and increment the round number
-        roundNumber++;
-        $("#round-number").text("Round " + roundNumber);
-
-        // Display the updated scores
-        $("#player-1-score").text(`Player 1 Score: ${player1Score}`);
-        $("#player-2-score").text(`Computer Score: ${computerScore}`);
       });
     });
     </script>
@@ -182,7 +148,7 @@
 
     <link href="custom.css" rel="stylesheet">
   </head>
-  <body onload="makeGetRequest()">
+  <body>
     
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -374,12 +340,12 @@
 
   <div class="bg-dark text-secondary px-4 py-5 text-center">
     <div class="py-5">
-      <h1 class="display-5 fw-bold text-white">Rock, Python, Scissors</h1>
+      <h1 class="display-5 fw-bold text-white">Rock, Paper, JavaScript</h1>
       <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4">This project was written using HTML, CSS, and JavaScript. But of course Python is central to Anaconda. And so, I also made a version of this application that uses Python on the backend. Visit the Python version of this application by pressing the button below.</p>
+        <p class="fs-5 mb-4">Click the button below to go back to the original Rock, Paper, Scissors page powered entirely through HTML, CSS, and JavaScript</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <a href="https://mbogard.com">
-            <button href="" type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Visit Python Page</button>
+          <a href="https://mbogard.com/rock-paper-scissors/index.html">
+            <button href="" type="button" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Visit JavaScript Page</button>
           </a>
         </div>
       </div>

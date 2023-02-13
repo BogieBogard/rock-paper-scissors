@@ -21,5 +21,5 @@ async def game(player1_choice: str, player1_name_input: str, player2_name_input:
         winner = "{} wins! {} chose {}, {} chose {}".format(player2_name_input, player1_name_input, player1_choice, player2_name_input, computer_choice)
         player1_score = 0
         computer_score = 1
-    response = {"winner": winner, "round_number": round_number, "player1_score": player1_score, "computer_score": computer_score}
+    response = {"winner": winner, "round_number": round_number, "player1_score": player1_score, "computer_score": computer_score, "computer_choice": computer_choice}
     return JSONResponse(content=response, headers={"Access-Control-Allow-Origin": "*"})
