@@ -25,4 +25,6 @@ Or,
 
 4. After completing these features, instead of working on the rest of the features described in the assignment, I decided to pivot to demonstrate my tech stack flexibility. I built a new page for the same game that uses Python code for some of its logic instead of JavaScript. In this new version, when a user chooses rock, paper, or scissors, the script makes a call to a Python service in my Google Cloud Platform account, which provides a response that is then consumed by the later jQuery code. There is a link to the Python page at the bottom of the `index.html` page.
 
+5. If I had more time then I would have liked to add the rest of the features listed in the assignment. Specifically, I would like to support two player mode--currently the game only support one player versus the computer. Additionally I would like to add a "save game" feature.
+
 ### Thank you for your time and consideration!
